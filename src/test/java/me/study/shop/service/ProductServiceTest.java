@@ -24,7 +24,7 @@ class ProductServiceTest {
 
 	@Test
 	@DisplayName("상품을 등록한다")
-	public void register() {
+	public void save() {
 		Product product = Product.builder()
 			.id(1L)
 			.name("test")
@@ -33,7 +33,7 @@ class ProductServiceTest {
 
 		given(productRepository.save(any())).willReturn(product);
 
-		productService.register(product);
+		productService.save(product);
 
 		verify(productRepository).save(any(Product.class));
 	}

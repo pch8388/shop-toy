@@ -11,7 +11,7 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
-	public void register(Product product) {
-		productRepository.save(product);
+	public Product save(Product product) {
+		return productRepository.save(product);
 	}
 }
