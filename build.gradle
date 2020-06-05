@@ -1,12 +1,21 @@
 plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    // querydsl
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    // MapStruct
+    id 'net.ltgt.apt' version '0.20'
     id 'java'
 }
 
 group = 'me.study'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+ext {
+    mapstructVersion = "1.4.0.Beta1"
+}
+
 
 configurations {
     compileOnly {
@@ -22,14 +31,56 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+
+    //logger
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+
+    //MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
+
+    //swagger
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'
+
+
+    annotationProcessor 'org.projectlombok:lombok', "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 }
 
 test {
     useJUnitPlatform()
 }
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true'
+    ]
+}
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝
