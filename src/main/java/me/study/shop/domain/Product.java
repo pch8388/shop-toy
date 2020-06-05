@@ -1,14 +1,16 @@
 package me.study.shop.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
 @Builder
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
 public class Product {
 
 	@Getter
@@ -18,3 +20,5 @@ public class Product {
 	private int price;
 
 }
+
+
