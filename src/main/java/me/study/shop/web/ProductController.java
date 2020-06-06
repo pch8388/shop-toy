@@ -1,7 +1,6 @@
 package me.study.shop.web;
 
 import lombok.RequiredArgsConstructor;
-import me.study.shop.domain.Product;
 import me.study.shop.dto.ProductRequestDto;
 import me.study.shop.dto.ProductResponseDto;
 import me.study.shop.service.ProductService;
@@ -24,7 +23,7 @@ public class ProductController {
 		return productService.save(PRODUCT_MAPPER.toProductEntity(dto)).getId();
 	}
 
-	@GetMapping("/api/v1/products")
+	@GetMapping("/api/v1/product")
 	public Page<ProductResponseDto> list(Pageable pageable) {
 		return productService.findProducts(pageable)
 			.map(PRODUCT_MAPPER::toProductResponseDto);

@@ -69,7 +69,7 @@ class ProductControllerTest {
 		PageRequest pageRequest = PageRequest.of(0, 3);
 		given(productService.findProducts(pageRequest)).willReturn(mockPage);
 
-		mockMvc.perform(get("/api/v1/products")
+		mockMvc.perform(get("/api/v1/product")
 				.param("page", "0")
 				.param("size", "3"))
 			.andDo(print())
