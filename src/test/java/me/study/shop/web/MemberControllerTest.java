@@ -2,7 +2,6 @@ package me.study.shop.web;
 
 import me.study.shop.domain.Address;
 import me.study.shop.domain.Member;
-import me.study.shop.domain.Product;
 import me.study.shop.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
