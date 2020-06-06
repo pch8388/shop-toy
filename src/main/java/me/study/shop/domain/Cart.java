@@ -9,19 +9,18 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-public class ProductBasket {
+public class Cart {
 
 	@Id @GeneratedValue
-	@Column(name = "product_basket+id")
+	@Column(name = "basket_id")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name ="basket_id")
-	private Basket basket;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	private Member member;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="product_id")
 	private Product product;
 
-	private int count;
 }
