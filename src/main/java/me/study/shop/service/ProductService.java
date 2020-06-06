@@ -3,6 +3,7 @@ package me.study.shop.service;
 import lombok.RequiredArgsConstructor;
 import me.study.shop.domain.Product;
 import me.study.shop.domain.ProductRepository;
+import me.study.shop.exception.NotFoundProductException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,10 @@ public class ProductService {
 
 	public Page<Product> findProducts(Pageable pageable) {
 		return productRepository.findAll(pageable);
+	}
+
+	public Product findProduct(Long productId) {
+		return productRepository.findById(productId)
+			.orElseThrow(NotFoundProductException::new);
 	}
 }
