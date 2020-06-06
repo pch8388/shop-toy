@@ -4,6 +4,6 @@ import lombok.*;
 
 @Data
 public class ProductRequestDto {
-	private String name;
+	private String title;
 	private int price;
 }

@@ -39,7 +39,7 @@ class ProductServiceTest {
 	public void save() {
 		Product product = Product.builder()
 			.id(1L)
-			.name("test")
+			.title("test")
 			.price(10000)
 			.build();
 
@@ -55,7 +55,7 @@ class ProductServiceTest {
 	public void findProducts() {
 		final Product product = Product.builder()
 			.id(1L)
-			.name("test")
+			.title("test")
 			.price(10000)
 			.build();
 
@@ -79,7 +79,7 @@ class ProductServiceTest {
 		final long id = 1L;
 		final Product product = Product.builder()
 			.id(id)
-			.name("test")
+			.title("test")
 			.price(10000)
 			.build();
 

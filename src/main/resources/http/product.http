@@ -10,7 +10,7 @@ POST http://localhost:8080/api/v1/product
 Content-Type: application/json
 
 {
-  "name": "test1",
+  "title": "test1",
   "price": 10000
 }
 

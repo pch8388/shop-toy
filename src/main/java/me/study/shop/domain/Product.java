@@ -2,6 +2,7 @@ package me.study.shop.domain;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,10 +14,10 @@ import javax.persistence.Id;
 @Entity
 public class Product {
 
-	@Getter
 	@Id @GeneratedValue
+	@Column(name = "product_id")
 	private Long id;
-	private String name;
+	private String title;
 	private int price;
 
 }

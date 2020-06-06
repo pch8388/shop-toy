@@ -15,11 +15,11 @@ class ProductMapperTest {
 	@DisplayName("dto -> entity 변환")
 	public void toProductEntity() {
 		final ProductRequestDto dto = new ProductRequestDto();
-		dto.setName("test");
+		dto.setTitle("test");
 		dto.setPrice(10000);
 
 		final Product product = ProductMapper.PRODUCT_MAPPER.toProductEntity(dto);
-		assertThat(product.getName()).isEqualTo(dto.getName());
+		assertThat(product.getTitle()).isEqualTo(dto.getTitle());
 		assertThat(product.getPrice()).isEqualTo(dto.getPrice());
 	}
 
@@ -29,13 +29,13 @@ class ProductMapperTest {
 		final Product product = Product.builder()
 			.id(1L)
 			.price(1000)
-			.name("test")
+			.title("test")
 			.build();
 
 		final ProductResponseDto dto =
 			ProductMapper.PRODUCT_MAPPER.toProductResponseDto(product);
 		assertThat(dto.getId()).isEqualTo(product.getId());
-		assertThat(dto.getName()).isEqualTo(product.getName());
+		assertThat(dto.getTitle()).isEqualTo(product.getTitle());
 		assertThat(dto.getPrice()).isEqualTo(product.getPrice());
 	}
 }

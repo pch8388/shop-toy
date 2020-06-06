@@ -1,6 +1,7 @@
 package me.study.shop.web;
 
 import lombok.RequiredArgsConstructor;
+import me.study.shop.domain.Product;
 import me.study.shop.dto.ProductRequestDto;
 import me.study.shop.dto.ProductResponseDto;
 import me.study.shop.service.ProductService;
