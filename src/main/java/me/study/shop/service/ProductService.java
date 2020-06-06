@@ -7,13 +7,16 @@ import me.study.shop.exception.NotFoundProductException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductService {
 
 	private final ProductRepository productRepository;
 
+	@Transactional
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}
