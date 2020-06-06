@@ -1,7 +1,7 @@
 package me.study.shop.service;
 
 import me.study.shop.domain.Product;
-import me.study.shop.domain.ProductRepository;
+import me.study.shop.repository.ProductRepository;
 import me.study.shop.exception.ErrorCode;
 import me.study.shop.exception.NotFoundProductException;
 import org.junit.jupiter.api.DisplayName;

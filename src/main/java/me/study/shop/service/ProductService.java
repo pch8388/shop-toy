@@ -2,7 +2,7 @@ package me.study.shop.service;
 
 import lombok.RequiredArgsConstructor;
 import me.study.shop.domain.Product;
-import me.study.shop.domain.ProductRepository;
+import me.study.shop.repository.ProductRepository;
 import me.study.shop.exception.NotFoundProductException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
