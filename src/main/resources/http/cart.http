@@ -1,0 +1,9 @@
+POST http://localhost:8080//api/v1/cart
+Content-Type: application/json
+
+{
+  "memberId": 1,
+  "productId": 2
+}
+
+###
