@@ -43,13 +43,14 @@ class ProductControllerTest {
 		Product mockProduct = Product.builder()
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		given(productService.save(any(Product.class))).willReturn(mockProduct);
 
 		mockMvc.perform(post("/api/v1/product")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"title\":\"test\",\"price\":10000}"))
+				.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":100}"))
 			.andDo(print())
 			.andExpect(status().isCreated());
 
@@ -63,6 +64,7 @@ class ProductControllerTest {
 		List<Product> mockProducts = Collections.singletonList(Product.builder()
 			.title(title)
 			.price(10000)
+			.stockQuantity(100)
 			.build());
 
 		Page<Product> mockPage = new PageImpl<>(mockProducts);
@@ -87,6 +89,7 @@ class ProductControllerTest {
 			.id(id)
 			.title(title)
 			.price(100)
+			.stockQuantity(100)
 			.build();
 
 		given(productService.findProduct(id)).willReturn(product);

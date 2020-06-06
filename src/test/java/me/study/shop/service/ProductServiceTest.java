@@ -41,6 +41,7 @@ class ProductServiceTest {
 			.id(1L)
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		given(productRepository.save(any())).willReturn(product);
@@ -57,6 +58,7 @@ class ProductServiceTest {
 			.id(1L)
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		List<Product> products = Collections.singletonList(product);
@@ -81,6 +83,7 @@ class ProductServiceTest {
 			.id(id)
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		when(productRepository.findById(id)).thenReturn(Optional.of(product));

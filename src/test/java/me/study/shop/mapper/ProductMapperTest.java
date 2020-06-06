@@ -17,10 +17,12 @@ class ProductMapperTest {
 		final ProductRequestDto dto = new ProductRequestDto();
 		dto.setTitle("test");
 		dto.setPrice(10000);
+		dto.setStockQuantity(100);
 
 		final Product product = ProductMapper.PRODUCT_MAPPER.toProductEntity(dto);
 		assertThat(product.getTitle()).isEqualTo(dto.getTitle());
 		assertThat(product.getPrice()).isEqualTo(dto.getPrice());
+		assertThat(product.getStockQuantity()).isEqualTo(dto.getStockQuantity());
 	}
 
 	@Test
@@ -30,6 +32,7 @@ class ProductMapperTest {
 			.id(1L)
 			.price(1000)
 			.title("test")
+			.stockQuantity(10)
 			.build();
 
 		final ProductResponseDto dto =
@@ -37,5 +40,6 @@ class ProductMapperTest {
 		assertThat(dto.getId()).isEqualTo(product.getId());
 		assertThat(dto.getTitle()).isEqualTo(product.getTitle());
 		assertThat(dto.getPrice()).isEqualTo(product.getPrice());
+		assertThat(dto.getStockQuantity()).isEqualTo(product.getStockQuantity());
 	}
 }

@@ -6,4 +6,5 @@ import lombok.*;
 public class ProductRequestDto {
 	private String title;
 	private int price;
+	private int stockQuantity;
 }

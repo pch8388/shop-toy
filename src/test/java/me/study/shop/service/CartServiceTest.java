@@ -47,6 +47,7 @@ class CartServiceTest {
 			.id(1L)
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		given(productRepository.findById(1L)).willReturn(Optional.of(product));
@@ -75,6 +76,7 @@ class CartServiceTest {
 			.id(1L)
 			.title("test")
 			.price(10000)
+			.stockQuantity(100)
 			.build();
 
 		final Cart cart = Cart.builder()
