@@ -20,6 +20,7 @@ import java.util.List;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -55,6 +56,22 @@ class ProductControllerTest {
 			.andExpect(status().isCreated());
 
 		verify(productService).save(any(Product.class));
+	}
+
+	@Test
+	@DisplayName("상품 등록 - 파라미터 검증")
+	public void save_invalid_input() throws Exception {
+		mockMvc.perform(post("/api/v1/product")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":0}"))
+			.andDo(print())
+			.andExpect(status().is4xxClientError());
+
+		mockMvc.perform(post("/api/v1/product")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"title\":\"\",\"price\":10000, \"stockQuantity\":100}"))
+			.andDo(print())
+			.andExpect(status().is4xxClientError());
 	}
 
 	@Test

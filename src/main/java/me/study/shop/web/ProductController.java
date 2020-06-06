@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static me.study.shop.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @RestController
@@ -19,7 +21,7 @@ public class ProductController {
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/product")
-	public Long save(@RequestBody ProductRequestDto dto) {
+	public Long save(@RequestBody @Valid ProductRequestDto dto) {
 		return productService.save(PRODUCT_MAPPER.toProductEntity(dto)).getId();
 	}
 
