@@ -18,7 +18,7 @@ class ProductMapperTest {
 		dto.setName("test");
 		dto.setPrice(10000);
 
-		final Product product = ProductMapper.INSTANCE.toProductEntity(dto);
+		final Product product = ProductMapper.PRODUCT_MAPPER.toProductEntity(dto);
 		assertThat(product.getName()).isEqualTo(dto.getName());
 		assertThat(product.getPrice()).isEqualTo(dto.getPrice());
 	}
@@ -33,7 +33,7 @@ class ProductMapperTest {
 			.build();
 
 		final ProductResponseDto dto =
-			ProductMapper.INSTANCE.toProductResponseDto(product);
+			ProductMapper.PRODUCT_MAPPER.toProductResponseDto(product);
 		assertThat(dto.getId()).isEqualTo(product.getId());
 		assertThat(dto.getName()).isEqualTo(product.getName());
 		assertThat(dto.getPrice()).isEqualTo(product.getPrice());

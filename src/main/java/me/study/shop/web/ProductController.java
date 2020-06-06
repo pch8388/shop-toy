@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static me.study.shop.mapper.ProductMapper.INSTANCE;
+import static me.study.shop.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,12 +20,17 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/product")
 	public Long save(@RequestBody ProductRequestDto dto) {
-		return productService.save(INSTANCE.toProductEntity(dto)).getId();
+		return productService.save(PRODUCT_MAPPER.toProductEntity(dto)).getId();
 	}
 
 	@GetMapping("/api/v1/products")
 	public Page<ProductResponseDto> list(Pageable pageable) {
 		return productService.findProducts(pageable)
-			.map(INSTANCE::toProductResponseDto);
+			.map(PRODUCT_MAPPER::toProductResponseDto);
+	}
+
+	@GetMapping("/api/v1/product/{productId}")
+	public ProductResponseDto detail(@PathVariable Long productId) {
+		return PRODUCT_MAPPER.toProductResponseDto(productService.findProduct(productId));
 	}
 }

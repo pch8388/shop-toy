@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ProductMapper {
 
-	ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
+	ProductMapper PRODUCT_MAPPER = Mappers.getMapper(ProductMapper.class);
 
 	Product toProductEntity(ProductRequestDto dto);
 
