@@ -60,4 +60,20 @@ class CartControllerTest {
 
 		verify(cartService).saveCart(anyLong(), anyLong());
 	}
+
+	@Test
+	@DisplayName("장바구니 추가 - 파라미터 검증")
+	public void add_cart_invalid_input() throws Exception {
+		mockMvc.perform(post("/api/v1/cart")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"productId\":1}"))
+			.andDo(print())
+			.andExpect(status().is4xxClientError());
+
+		mockMvc.perform(post("/api/v1/cart")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"memberId\":1}"))
+			.andDo(print())
+			.andExpect(status().is4xxClientError());
+	}
 }

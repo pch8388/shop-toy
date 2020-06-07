@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import static me.study.shop.mapper.MemberMapper.MEMBER_MAPPER;
 
 @RestController
@@ -19,7 +21,7 @@ public class MemberController {
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/member")
-	public Long register(@RequestBody MemberRequestDto dto) {
+	public Long register(@RequestBody @Valid MemberRequestDto dto) {
 		return memberService.register(
 			MEMBER_MAPPER.toProductEntity(dto)).getId();
 	}

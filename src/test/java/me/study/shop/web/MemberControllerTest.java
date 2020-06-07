@@ -47,4 +47,14 @@ class MemberControllerTest {
 
 		verify(memberService).register(any(Member.class));
 	}
+
+	@Test
+	@DisplayName("유저 등록 - 파라미터 검증")
+	public void save_invalid_input() throws Exception {
+		mockMvc.perform(post("/api/v1/member")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"address\" : {\"city\":\"Seoul\", \"street\":\"road\", \"zipcode\":\"12345\"}}"))
+			.andDo(print())
+			.andExpect(status().is4xxClientError());
+	}
 }

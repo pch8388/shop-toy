@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class CartController {
@@ -17,7 +19,7 @@ public class CartController {
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/cart")
-	public Long add(@RequestBody CartRequestDto dto) {
+	public Long add(@RequestBody @Valid CartRequestDto dto) {
 		return cartService.saveCart(
 			dto.getMemberId(), dto.getProductId()).getId();
 	}
