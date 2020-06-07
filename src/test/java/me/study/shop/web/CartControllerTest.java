@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,5 +76,13 @@ class CartControllerTest {
 			.content("{\"memberId\":1}"))
 			.andDo(print())
 			.andExpect(status().is4xxClientError());
+	}
+
+	@Test
+	@DisplayName("장바구니를 삭제한다")
+	public void delete_cart() throws Exception {
+		mockMvc.perform(delete("/api/v1/cart/1"))
+			.andDo(print())
+			.andExpect(status().isNoContent());
 	}
 }
