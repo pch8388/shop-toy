@@ -36,33 +36,6 @@ class CartServiceTest {
 	@InjectMocks
 	private CartService cartService;
 
-	@BeforeEach
-	public void setUp() {
-		mockMember();
-		mockProduct();
-	}
-
-	private void mockProduct() {
-		final Product product = Product.builder()
-			.id(1L)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
-
-		given(productRepository.findById(1L)).willReturn(Optional.of(product));
-	}
-
-	private void mockMember() {
-		final Member member = Member.builder()
-			.id(1L)
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
-
-		given(memberRepository.findById(1L)).willReturn(Optional.of(member));
-	}
-
 	@Test
 	@DisplayName("장바구니에 상품을 담는다")
 	public void save_cart() {
@@ -85,10 +58,42 @@ class CartServiceTest {
 			.product(product)
 			.build();
 
+		given(productRepository.findById(1L)).willReturn(Optional.of(product));
+		given(memberRepository.findById(1L)).willReturn(Optional.of(member));
 		given(cartRepository.save(any())).willReturn(cart);
 
 		cartService.saveCart(member.getId(), product.getId());
 
 		verify(cartRepository).save(any(Cart.class));
+	}
+
+	@Test
+	@DisplayName("장바구니를 삭제한다")
+	public void delete_cart() {
+		final Member member = Member.builder()
+			.id(1L)
+			.username("member1")
+			.address(new Address("Seoul", "road", "12345"))
+			.build();
+
+		final Product product = Product.builder()
+			.id(1L)
+			.title("test")
+			.price(10000)
+			.stockQuantity(100)
+			.build();
+
+		final Cart cart = Cart.builder()
+			.id(1L)
+			.member(member)
+			.product(product)
+			.build();
+
+
+		given(cartRepository.findById(1L)).willReturn(Optional.of(cart));
+
+		cartService.deleteCart(1L);
+
+		verify(cartRepository).delete(any(Cart.class));
 	}
 }

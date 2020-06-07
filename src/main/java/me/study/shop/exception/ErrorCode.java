@@ -11,7 +11,10 @@ public enum ErrorCode {
 	NOT_FOUND_PRODUCT(HttpStatus.NOT_FOUND, "해당하는 상품이 없습니다"),
 
 	/** member */
-	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다")
+	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다"),
+
+	/** cart */
+	NOT_FOUND_CART(HttpStatus.NOT_FOUND, "존재하지 않는 장바구니 입니다")
 	;
 
 	private final HttpStatus status;

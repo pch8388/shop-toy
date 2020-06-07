@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.study.shop.domain.Cart;
 import me.study.shop.domain.Member;
 import me.study.shop.domain.Product;
+import me.study.shop.exception.NotFoundCartException;
 import me.study.shop.exception.NotFoundMemberException;
 import me.study.shop.exception.NotFoundProductException;
 import me.study.shop.repository.CartRepository;
@@ -34,5 +35,13 @@ public class CartService {
 				.member(member)
 				.product(product)
 				.build());
+	}
+
+	@Transactional
+	public void deleteCart(Long cartId) {
+		final Cart cart = cartRepository.findById(cartId)
+			.orElseThrow(NotFoundCartException::new);
+
+		cartRepository.delete(cart);
 	}
 }
