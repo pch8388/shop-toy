@@ -43,13 +43,10 @@ class CartControllerTest {
 		final Product mockProduct = Product.builder()
 			.title("test")
 			.price(10000)
+			.stockQuantity(10)
 			.build();
 
-		final Cart mockCart = Cart.builder()
-			.id(1L)
-			.product(mockProduct)
-			.member(mockMember)
-			.build();
+		final Cart mockCart = Cart.addToCart(mockMember, mockProduct);
 
 		given(cartService.saveCart(anyLong(), anyLong())).willReturn(mockCart);
 

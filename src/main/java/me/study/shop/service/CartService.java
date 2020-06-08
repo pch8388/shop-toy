@@ -30,11 +30,7 @@ public class CartService {
 		final Product product = productRepository.findById(productId)
 				.orElseThrow(NotFoundProductException::new);
 
-		return cartRepository.save(
-			Cart.builder()
-				.member(member)
-				.product(product)
-				.build());
+		return cartRepository.save(Cart.addToCart(member, product));
 	}
 
 	@Transactional

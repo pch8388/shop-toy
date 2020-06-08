@@ -52,11 +52,7 @@ class CartServiceTest {
 			.stockQuantity(100)
 			.build();
 
-		final Cart cart = Cart.builder()
-			.id(1L)
-			.member(member)
-			.product(product)
-			.build();
+		final Cart cart = Cart.addToCart(member, product);
 
 		given(productRepository.findById(1L)).willReturn(Optional.of(product));
 		given(memberRepository.findById(1L)).willReturn(Optional.of(member));
@@ -83,12 +79,7 @@ class CartServiceTest {
 			.stockQuantity(100)
 			.build();
 
-		final Cart cart = Cart.builder()
-			.id(1L)
-			.member(member)
-			.product(product)
-			.build();
-
+		final Cart cart = Cart.addToCart(member, product);
 
 		given(cartRepository.findById(1L)).willReturn(Optional.of(cart));
 

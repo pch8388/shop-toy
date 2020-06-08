@@ -1,6 +1,7 @@
 package me.study.shop.domain;
 
 import lombok.*;
+import me.study.shop.exception.NotEnoughStockException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,15 @@ public class Product {
 	private String title;
 	private int price;
 	private int stockQuantity;
+
+	public void removeStock(int quantity) {
+		int restStock = stockQuantity - quantity;
+		if (restStock < 0) {
+			throw new NotEnoughStockException();
+		}
+
+		this.stockQuantity = restStock;
+	}
 }
 
 

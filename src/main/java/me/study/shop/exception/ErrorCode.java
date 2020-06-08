@@ -9,6 +9,7 @@ public enum ErrorCode {
 
 	/** product */
 	NOT_FOUND_PRODUCT(HttpStatus.NOT_FOUND, "해당하는 상품이 없습니다"),
+	NOT_ENOUGH_STOCK(HttpStatus.NOT_FOUND, "재고가 부족합니다"),
 
 	/** member */
 	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다"),
