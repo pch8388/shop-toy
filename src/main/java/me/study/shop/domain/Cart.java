@@ -10,8 +10,6 @@ import javax.persistence.*;
 @Entity
 public class Cart {
 
-	private static final int CART_COUNT = 1;
-
 	@Id @GeneratedValue
 	@Column(name = "cart_id")
 	private Long id;
@@ -30,7 +28,7 @@ public class Cart {
 	}
 
 	public static Cart addToCart(Member member, Product product) {
-		product.removeStock(CART_COUNT);
+		product.checkStock();
 
 		return new Cart(member, product);
 	}

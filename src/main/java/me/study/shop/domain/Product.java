@@ -30,6 +30,12 @@ public class Product {
 
 		this.stockQuantity = restStock;
 	}
+
+	public void checkStock() {
+		if (stockQuantity <= 0) {
+			throw new NotEnoughStockException();
+		}
+	}
 }
 
 

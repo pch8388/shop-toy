@@ -40,4 +40,18 @@ class ProductTest {
 			.isInstanceOf(NotEnoughStockException.class)
 			.hasMessage(ErrorCode.NOT_ENOUGH_STOCK.getMessage());
 	}
+
+	@Test
+	@DisplayName("현재 재고 수량이 있는지 확인 - 없으면 예외 발생")
+	public void checkStock_NotEnoughException() {
+		Product product = Product.builder()
+			.title("test1")
+			.price(1000)
+			.stockQuantity(0)
+			.build();
+
+		assertThatThrownBy(product::checkStock)
+			.isInstanceOf(NotEnoughStockException.class)
+			.hasMessage(ErrorCode.NOT_ENOUGH_STOCK.getMessage());
+	}
 }

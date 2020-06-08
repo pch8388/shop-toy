@@ -7,7 +7,6 @@ import me.study.shop.domain.Product;
 import me.study.shop.repository.CartRepository;
 import me.study.shop.repository.MemberRepository;
 import me.study.shop.repository.ProductRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
