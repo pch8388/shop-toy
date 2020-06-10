@@ -40,11 +40,8 @@ class ProductControllerTest {
 	@Test
 	@DisplayName("상품 등록")
 	public void save() throws Exception {
-		Product mockProduct = Product.builder()
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		Product mockProduct = Product.createProduct(
+			"test", 10000, 100);
 
 		given(productService.save(any(Product.class))).willReturn(mockProduct);
 
@@ -77,11 +74,8 @@ class ProductControllerTest {
 	@DisplayName("상품 목록")
 	public void list() throws Exception {
 		final String title = "test";
-		List<Product> mockProducts = Collections.singletonList(Product.builder()
-			.title(title)
-			.price(10000)
-			.stockQuantity(100)
-			.build());
+		List<Product> mockProducts = Collections.singletonList(Product.createProduct(
+			"test", 10000, 10));
 
 		Page<Product> mockPage = new PageImpl<>(mockProducts);
 		PageRequest pageRequest = PageRequest.of(0, 3);
@@ -101,12 +95,8 @@ class ProductControllerTest {
 	public void detail() throws Exception {
 		final Long id = 1L;
 		final String title = "test";
-		Product product = Product.builder()
-			.id(id)
-			.title(title)
-			.price(100)
-			.stockQuantity(100)
-			.build();
+		Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		given(productService.findProduct(id)).willReturn(product);
 

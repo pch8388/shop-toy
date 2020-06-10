@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static me.study.shop.mapper.MemberMapper.MEMBER_MAPPER;
-
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -22,7 +20,6 @@ public class MemberController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/member")
 	public Long register(@RequestBody @Valid MemberRequestDto dto) {
-		return memberService.register(
-			MEMBER_MAPPER.toProductEntity(dto)).getId();
+		return memberService.register(dto.toEntity()).getId();
 	}
 }

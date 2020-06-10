@@ -37,12 +37,8 @@ class ProductServiceTest {
 	@Test
 	@DisplayName("상품을 등록한다")
 	public void save() {
-		Product product = Product.builder()
-			.id(1L)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		given(productRepository.save(any())).willReturn(product);
 
@@ -54,12 +50,8 @@ class ProductServiceTest {
 	@Test
 	@DisplayName("상품 목록 조회")
 	public void findProducts() {
-		final Product product = Product.builder()
-			.id(1L)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		List<Product> products = Collections.singletonList(product);
 
@@ -79,12 +71,8 @@ class ProductServiceTest {
 	@DisplayName("상품 상세 조회")
 	public void findProduct() {
 		final long id = 1L;
-		final Product product = Product.builder()
-			.id(id)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		final Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		when(productRepository.findById(id)).thenReturn(Optional.of(product));
 

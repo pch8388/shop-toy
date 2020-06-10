@@ -26,10 +26,8 @@ class MemberServiceTest {
 	@Test
 	@DisplayName("유저 등록")
 	public void register() {
-		final Member member = Member.builder()
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
+		final Member member = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
 
 		given(memberRepository.save(any())).willReturn(member);
 

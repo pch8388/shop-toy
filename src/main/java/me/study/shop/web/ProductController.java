@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static me.study.shop.mapper.ProductMapper.PRODUCT_MAPPER;
-
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
@@ -22,17 +20,17 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/product")
 	public Long save(@RequestBody @Valid ProductRequestDto dto) {
-		return productService.save(PRODUCT_MAPPER.toProductEntity(dto)).getId();
+		return productService.save(dto.toEntity()).getId();
 	}
 
 	@GetMapping("/api/v1/product")
 	public Page<ProductResponseDto> list(Pageable pageable) {
 		return productService.findProducts(pageable)
-			.map(PRODUCT_MAPPER::toProductResponseDto);
+			.map(ProductResponseDto::of);
 	}
 
 	@GetMapping("/api/v1/product/{productId}")
 	public ProductResponseDto detail(@PathVariable Long productId) {
-		return PRODUCT_MAPPER.toProductResponseDto(productService.findProduct(productId));
+		return ProductResponseDto.of(productService.findProduct(productId));
 	}
 }

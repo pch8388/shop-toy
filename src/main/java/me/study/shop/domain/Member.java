@@ -1,13 +1,13 @@
 package me.study.shop.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Member {
 
@@ -19,4 +19,13 @@ public class Member {
 
 	@Embedded
 	private Address address;
+
+	private Member(String username, Address address) {
+		this.username = username;
+		this.address = address;
+	}
+
+	public static Member createMember(String username, Address address) {
+		return new Member(username, address);
+	}
 }

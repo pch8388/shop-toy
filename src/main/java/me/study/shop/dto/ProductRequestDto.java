@@ -1,11 +1,13 @@
 package me.study.shop.dto;
 
 import lombok.*;
+import me.study.shop.domain.Product;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-@Data
+@Getter
+@Builder
 public class ProductRequestDto {
 	@NotEmpty
 	private String title;
@@ -14,4 +16,8 @@ public class ProductRequestDto {
 
 	@Min(1)
 	private int stockQuantity;
+
+	public Product toEntity() {
+		return Product.createProduct(title, price, stockQuantity);
+	}
 }
