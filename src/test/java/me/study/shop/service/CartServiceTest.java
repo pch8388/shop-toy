@@ -38,18 +38,11 @@ class CartServiceTest {
 	@Test
 	@DisplayName("장바구니에 상품을 담는다")
 	public void save_cart() {
-		final Member member = Member.builder()
-			.id(1L)
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
+		final Member member = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
 
-		final Product product = Product.builder()
-			.id(1L)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		final Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		final Cart cart = Cart.addToCart(member, product);
 
@@ -57,7 +50,7 @@ class CartServiceTest {
 		given(memberRepository.findById(1L)).willReturn(Optional.of(member));
 		given(cartRepository.save(any())).willReturn(cart);
 
-		cartService.saveCart(member.getId(), product.getId());
+		cartService.saveCart(1L, 1L);
 
 		verify(cartRepository).save(any(Cart.class));
 	}
@@ -65,18 +58,11 @@ class CartServiceTest {
 	@Test
 	@DisplayName("장바구니를 삭제한다")
 	public void delete_cart() {
-		final Member member = Member.builder()
-			.id(1L)
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
+		final Member member = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
 
-		final Product product = Product.builder()
-			.id(1L)
-			.title("test")
-			.price(10000)
-			.stockQuantity(100)
-			.build();
+		final Product product = Product.createProduct(
+			"test", 10000, 100);
 
 		final Cart cart = Cart.addToCart(member, product);
 

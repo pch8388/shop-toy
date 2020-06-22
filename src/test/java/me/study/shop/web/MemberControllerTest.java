@@ -32,10 +32,9 @@ class MemberControllerTest {
 	@Test
 	@DisplayName("유저 등록")
 	public void save() throws Exception {
-		final Member member = Member.builder()
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
+		final Member member = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
+
 
 		given(memberService.register(any(Member.class))).willReturn(member);
 

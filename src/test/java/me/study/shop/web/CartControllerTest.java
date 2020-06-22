@@ -35,16 +35,12 @@ class CartControllerTest {
 	@Test
 	@DisplayName("장바구니 추가")
 	public void add_cart() throws Exception {
-		final Member mockMember = Member.builder()
-			.username("member1")
-			.address(new Address("Seoul", "road", "12345"))
-			.build();
+		final Member mockMember = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
 
-		final Product mockProduct = Product.builder()
-			.title("test")
-			.price(10000)
-			.stockQuantity(10)
-			.build();
+		final Product mockProduct = Product.createProduct(
+			"test", 10000, 10);
+
 
 		final Cart mockCart = Cart.addToCart(mockMember, mockProduct);
 
