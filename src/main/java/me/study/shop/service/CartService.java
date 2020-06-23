@@ -10,8 +10,12 @@ import me.study.shop.exception.NotFoundProductException;
 import me.study.shop.repository.CartRepository;
 import me.study.shop.repository.MemberRepository;
 import me.study.shop.repository.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +43,11 @@ public class CartService {
 			.orElseThrow(NotFoundCartException::new);
 
 		cartRepository.delete(cart);
+	}
+
+	public Page<Cart> findAllByMemberId(Long memberId, Pageable pageable) {
+		return cartRepository.findAllByMember(
+			memberRepository.findById(memberId)
+				.orElseThrow(NotFoundMemberException::new), pageable);
 	}
 }

@@ -1,4 +1,4 @@
-package me.study.shop.web;
+package me.study.shop.api;
 
 import me.study.shop.domain.Product;
 import me.study.shop.service.ProductService;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductControllerTest {
+class ProductApiTest {
 
 	@Autowired
 	private MockMvc mockMvc;

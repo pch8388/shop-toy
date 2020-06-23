@@ -1,4 +1,4 @@
-package me.study.shop.web;
+package me.study.shop.api;
 
 import me.study.shop.domain.Address;
 import me.study.shop.domain.Cart;
@@ -11,20 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CartControllerTest {
+class CartApiTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -77,5 +83,27 @@ class CartControllerTest {
 		mockMvc.perform(delete("/api/v1/cart/1"))
 			.andDo(print())
 			.andExpect(status().isNoContent());
+	}
+
+	@Test
+	@DisplayName("장바구니 목록 조회")
+	public void list_cart() throws Exception {
+		final Member mockMember = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
+
+		final Product mockProduct = Product.createProduct(
+			"test", 10000, 10);
+
+		List<Cart> mockCart = Collections.singletonList(Cart.addToCart(mockMember, mockProduct));
+
+		Page<Cart> mockPage = new PageImpl<>(mockCart);
+		PageRequest pageRequest = PageRequest.of(0, 3);
+		given(cartService.findAllByMemberId(1L, pageRequest)).willReturn(mockPage);
+
+		mockMvc.perform(get("/api/v1/carts/1")
+			.param("page", "0")
+			.param("size", "3"))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 }

@@ -1,4 +1,4 @@
-package me.study.shop.web;
+package me.study.shop.api;
 
 import me.study.shop.domain.Address;
 import me.study.shop.domain.Member;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MemberControllerTest {
+class MemberApiTest {
 
 	@Autowired
 	private MockMvc mockMvc;

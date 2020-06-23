@@ -13,9 +13,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.filter;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -71,5 +78,29 @@ class CartServiceTest {
 		cartService.deleteCart(1L);
 
 		verify(cartRepository).delete(any(Cart.class));
+	}
+
+	@Test
+	@DisplayName("장바구니 목록 조회")
+	public void list_cart() {
+		final Member member = Member.createMember(
+			"member1", new Address("Seoul", "road", "12345"));
+
+		final Product product = Product.createProduct(
+			"test", 10000, 100);
+
+		final Cart cart = Cart.addToCart(member, product);
+		final List<Cart> carts = Collections.singletonList(cart) ;
+
+		Page<Cart> mockPage = new PageImpl<>(carts);
+		PageRequest pageRequest = PageRequest.of(0, 3);
+		given(cartRepository.findAllByMember(member, pageRequest)).willReturn(mockPage);
+		given(memberRepository.findById(1L)).willReturn(Optional.of(member));
+
+		final Page<Cart> pageCart = cartService.findAllByMemberId(1L, pageRequest);
+		assertThat(pageCart.getSize()).isEqualTo(1);
+		assertThat(pageCart.getContent()).contains(cart);
+
+		verify(cartRepository).findAllByMember(member, pageRequest);
 	}
 }
