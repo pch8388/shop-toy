@@ -3,12 +3,12 @@ package me.study.shop.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.study.shop.exception.StockQuantityParameterException;
 import me.study.shop.exception.NotEnoughStockException;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,8 +19,13 @@ public class Product {
 	@Column(name = "product_id")
 	private Long id;
 
+	@OneToMany(mappedBy = "product")
+	private List<CategoryProduct> categoryProducts = new ArrayList<>();
+
 	private String title;
+
 	private int price;
+
 	private int stockQuantity;
 
 	private Product(String title, int price, int stockQuantity) {
@@ -31,6 +36,13 @@ public class Product {
 
 	public static Product createProduct(String title, int price, int stockQuantity) {
 		return new Product(title, price, stockQuantity);
+	}
+
+	public void addStock(int quantity) {
+		if (quantity <= 0) {
+			throw new StockQuantityParameterException();
+		}
+		this.stockQuantity += quantity;
 	}
 
 	public void removeStock(int quantity) {
