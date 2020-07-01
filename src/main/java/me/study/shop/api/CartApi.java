@@ -22,7 +22,7 @@ public class CartApi {
 
 	@ApiOperation(value = "장바구니 등록", notes = "장바구니에 상품을 담는다")
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/api/v1/cart")
+	@PostMapping("/api/v1/carts")
 	public Long add(@RequestBody @Valid CartRequestDto dto) {
 		return cartService.saveCart(
 			dto.getMemberId(), dto.getProductId()).getId();
@@ -30,7 +30,7 @@ public class CartApi {
 
 	@ApiOperation(value = "장바구니 삭제", notes = "장바구니 상품을 삭제한다")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/api/v1/cart/{cartId}")
+	@DeleteMapping("/api/v1/carts/{cartId}")
 	public void delete(@PathVariable Long cartId) {
 		cartService.deleteCart(cartId);
 	}

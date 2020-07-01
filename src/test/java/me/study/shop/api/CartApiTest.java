@@ -52,7 +52,7 @@ class CartApiTest {
 
 		given(cartService.saveCart(anyLong(), anyLong())).willReturn(mockCart);
 
-		mockMvc.perform(post("/api/v1/cart")
+		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"memberId\":1,\"productId\":1}"))
 			.andDo(print())
@@ -64,13 +64,13 @@ class CartApiTest {
 	@Test
 	@DisplayName("장바구니 추가 - 파라미터 검증")
 	public void add_cart_invalid_input() throws Exception {
-		mockMvc.perform(post("/api/v1/cart")
+		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"productId\":1}"))
 			.andDo(print())
 			.andExpect(status().is4xxClientError());
 
-		mockMvc.perform(post("/api/v1/cart")
+		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"memberId\":1}"))
 			.andDo(print())
@@ -80,7 +80,7 @@ class CartApiTest {
 	@Test
 	@DisplayName("장바구니를 삭제한다")
 	public void delete_cart() throws Exception {
-		mockMvc.perform(delete("/api/v1/cart/1"))
+		mockMvc.perform(delete("/api/v1/carts/1"))
 			.andDo(print())
 			.andExpect(status().isNoContent());
 	}
