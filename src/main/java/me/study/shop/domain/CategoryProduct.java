@@ -21,4 +21,13 @@ public class CategoryProduct {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    private CategoryProduct(Category category, Product product) {
+        this.category = category;
+        this.product = product;
+    }
+
+    public static CategoryProduct of(Category category, Product product) {
+        return new CategoryProduct(category, product);
+    }
 }

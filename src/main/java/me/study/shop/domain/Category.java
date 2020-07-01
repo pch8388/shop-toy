@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -30,5 +32,26 @@ public class Category {
 	private Category parent;
 
 	@OneToMany(mappedBy = "parent")
-	private List<Category> child;
+	private List<Category> child = new ArrayList<>();
+
+	private Category(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public static Category of(String categoryName) {
+		return new Category(categoryName);
+	}
+
+	public void addChildCategory(Category child) {
+		this.child.add(child);
+		child.addParent(this);
+	}
+
+	private void addParent(Category parent) {
+		this.parent = parent;
+	}
+
+	public Collection<Category> getChild() {
+		return Collections.unmodifiableCollection(child);
+	}
 }
