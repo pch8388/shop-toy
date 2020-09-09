@@ -30,6 +30,7 @@ dependencies {
     //security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
+    implementation 'com.auth0:java-jwt:3.10.3'
 
     //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
