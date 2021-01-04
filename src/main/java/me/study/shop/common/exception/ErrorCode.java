@@ -19,7 +19,7 @@ public enum ErrorCode {
 	NOT_FOUND_CART(HttpStatus.NOT_FOUND, "존재하지 않는 장바구니 입니다."),
 
 	/** category */
-	NOUT_FOUND_CATEGORY(HttpStatus.NOT_FOUND, "존재하지 않는 카테고리 입니다.")
+	NOT_FOUND_CATEGORY(HttpStatus.NOT_FOUND, "존재하지 않는 카테고리 입니다.")
 	;
 
 	private final HttpStatus status;

@@ -40,7 +40,7 @@ class MemberApiTest {
 
 		mockMvc.perform(post("/api/v1/member")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"username\":\"member1\", \"address\" : {\"city\":\"Seoul\", \"street\":\"road\", \"zipcode\":\"12345\"}}"))
+			.content("{\"username\":\"member1\", \"password\":\"1234\",\"address\" : {\"city\":\"Seoul\", \"street\":\"road\", \"zipcode\":\"12345\"}}"))
 			.andDo(print())
 			.andExpect(status().isCreated());
 
