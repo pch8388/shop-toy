@@ -3,6 +3,8 @@ Content-Type: application/json
 
 {
  "username":"member1",
-  "address" : {"city":"Seoul", "street":"road", "zipcode":"12345"}
+  "address" : {"city":"Seoul", "street":"road", "zipcode":"12345"},
+  "password": "test",
+  "email": "test@test.com"
 }
 ###

@@ -2,6 +2,7 @@ package me.study.shop.cart.api;
 
 import me.study.shop.member.domain.Address;
 import me.study.shop.cart.domain.Cart;
+import me.study.shop.member.domain.Email;
 import me.study.shop.member.domain.Member;
 import me.study.shop.product.domain.Product;
 import me.study.shop.cart.service.CartService;
@@ -41,7 +42,8 @@ class CartApiTest {
 	@DisplayName("장바구니 추가")
 	public void add_cart() throws Exception {
 		final Member mockMember = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product mockProduct = Product.createProduct(
 			"test", 10000, 10);
@@ -67,13 +69,13 @@ class CartApiTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"productId\":1}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 
 		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"memberId\":1}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 	}
 
 	@Test
@@ -88,7 +90,8 @@ class CartApiTest {
 	@DisplayName("장바구니 목록 조회")
 	public void list_cart() throws Exception {
 		final Member mockMember = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product mockProduct = Product.createProduct(
 			"test", 10000, 10);

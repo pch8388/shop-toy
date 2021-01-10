@@ -14,6 +14,7 @@ public enum ErrorCode {
 
 	/** member */
 	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다."),
+	EXIST_EMAIL(HttpStatus.BAD_REQUEST, "이미 등록된 이메일 입니다."),
 
 	/** cart */
 	NOT_FOUND_CART(HttpStatus.NOT_FOUND, "존재하지 않는 장바구니 입니다."),

@@ -1,6 +1,7 @@
 package me.study.shop.member.api;
 
 import me.study.shop.member.domain.Address;
+import me.study.shop.member.domain.Email;
 import me.study.shop.member.domain.Member;
 import me.study.shop.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,10 +34,11 @@ class MemberApiTest {
 	@DisplayName("유저 등록")
 	public void save() throws Exception {
 		final Member member = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 
-		given(memberService.register(any(Member.class))).willReturn(member);
+		given(memberService.register(anyString(), anyString(), any(), any())).willReturn(member);
 
 		mockMvc.perform(post("/api/v1/member")
 			.contentType(MediaType.APPLICATION_JSON)
@@ -44,7 +46,7 @@ class MemberApiTest {
 			.andDo(print())
 			.andExpect(status().isCreated());
 
-		verify(memberService).register(any(Member.class));
+		verify(memberService).register(anyString(), anyString(), any(), any());
 	}
 
 	@Test

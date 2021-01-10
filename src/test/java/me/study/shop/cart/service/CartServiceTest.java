@@ -3,6 +3,7 @@ package me.study.shop.cart.service;
 import me.study.shop.cart.service.CartService;
 import me.study.shop.member.domain.Address;
 import me.study.shop.cart.domain.Cart;
+import me.study.shop.member.domain.Email;
 import me.study.shop.member.domain.Member;
 import me.study.shop.product.domain.Product;
 import me.study.shop.cart.repository.CartRepository;
@@ -47,7 +48,8 @@ class CartServiceTest {
 	@DisplayName("장바구니에 상품을 담는다")
 	public void save_cart() {
 		final Member member = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product product = Product.createProduct(
 			"test", 10000, 100);
@@ -67,7 +69,8 @@ class CartServiceTest {
 	@DisplayName("장바구니를 삭제한다")
 	public void delete_cart() {
 		final Member member = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product product = Product.createProduct(
 			"test", 10000, 100);
@@ -85,7 +88,8 @@ class CartServiceTest {
 	@DisplayName("장바구니 목록 조회")
 	public void list_cart() {
 		final Member member = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product product = Product.createProduct(
 			"test", 10000, 100);

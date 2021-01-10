@@ -1,4 +1,4 @@
-package me.study.shop.common.utils;
+package me.study.shop.security;
 
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;

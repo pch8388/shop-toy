@@ -61,13 +61,13 @@ class ProductApiTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":0}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 
 		mockMvc.perform(post("/api/v1/product")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"\",\"price\":10000, \"stockQuantity\":100}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 	}
 
 	@Test

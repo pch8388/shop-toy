@@ -1,4 +1,4 @@
-package me.study.shop.common.utils;
+package me.study.shop.security;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import me.study.shop.security.Jwt;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JwtTest {
