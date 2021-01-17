@@ -10,6 +10,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import me.study.shop.security.Jwt;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,6 +19,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Jwt jwt(JwtTokenConfig jwtTokenConfigure) {
+        return new Jwt(jwtTokenConfigure.getIssuer(),
+            jwtTokenConfigure.getClientSecret(),
+            jwtTokenConfigure.getExpirySeconds());
     }
 
     @Override

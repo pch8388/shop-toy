@@ -1,9 +1,13 @@
 package me.study.shop.member.api;
 
-import me.study.shop.member.domain.Address;
-import me.study.shop.member.domain.Email;
-import me.study.shop.member.domain.User;
-import me.study.shop.member.service.UserService;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.BDDMockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.Set;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import me.study.shop.member.domain.Role;
+import me.study.shop.member.domain.User;
+import me.study.shop.member.service.UserService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,12 +34,14 @@ class UserApiTest {
 	@Test
 	@DisplayName("유저 등록")
 	public void save() throws Exception {
-		final User user = User.createUser(
-			"member1", "test", new Email("test@test.com"),
-			new Address("Seoul", "road", "12345"));
+		final User mockUser = mock(User.class);
 
+		given(userService.register(anyString(), anyString(), any(), any())).willReturn(mockUser);
 
-		given(userService.register(anyString(), anyString(), any(), any())).willReturn(user);
+		when(mockUser.getId()).thenReturn(1L);
+		when(mockUser.getUsername()).thenReturn("member1");
+		when(mockUser.getRoles()).thenReturn(Set.of(Role.ROLE_USER));
+		when(mockUser.getEmailAddress()).thenReturn("test@test.com");
 
 		mockMvc.perform(post("/api/v1/users")
 			.contentType(MediaType.APPLICATION_JSON)
@@ -57,6 +60,6 @@ class UserApiTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"address\" : {\"city\":\"Seoul\", \"street\":\"road\", \"zipcode\":\"12345\"}}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 	}
 }

@@ -69,4 +69,8 @@ public class User {
 		String username, String password, Email email, Address address) {
 		return new User(username, password, email, address, Role.ROLE_USER);
 	}
+
+	public String getEmailAddress() {
+		return email.getEmailAddress();
+	}
 }
