@@ -13,7 +13,7 @@ public enum ErrorCode {
 	QUANTITY_PARAMETER(HttpStatus.BAD_REQUEST, "0이하로 재고를 추가할 수 없습니다."),
 
 	/** member */
-	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다."),
+	NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다."),
 	EXIST_EMAIL(HttpStatus.BAD_REQUEST, "이미 등록된 이메일 입니다."),
 
 	/** cart */

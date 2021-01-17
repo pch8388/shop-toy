@@ -1,5 +1,6 @@
 package me.study.shop.product.api;
 
+import me.study.shop.config.WithMockCustomUser;
 import me.study.shop.product.domain.Product;
 import me.study.shop.product.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
