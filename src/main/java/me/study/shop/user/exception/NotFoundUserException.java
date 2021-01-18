@@ -1,4 +1,4 @@
-package me.study.shop.member.exception;
+package me.study.shop.user.exception;
 
 import me.study.shop.common.exception.BusinessException;
 import me.study.shop.common.exception.ErrorCode;

@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.ToString;
-import me.study.shop.member.domain.Role;
+import me.study.shop.user.domain.Email;
 
 import java.util.Date;
 
@@ -85,6 +85,7 @@ public final class Jwt {
     static public class Claims {
         Long userKey;
         String name;
+        Email email;
         String[] roles;
         Date iat;
         Date exp;
@@ -99,6 +100,9 @@ public final class Jwt {
             Claim name = decodedJWT.getClaim("name");
             if (!name.isNull())
                 this.name = name.asString();
+            Claim email = decodedJWT.getClaim("email");
+            if (!email.isNull())
+                this.email = new Email(email.asString());
             Claim roles = decodedJWT.getClaim("roles");
             if (!roles.isNull())
                 this.roles = roles.asArray(String.class);

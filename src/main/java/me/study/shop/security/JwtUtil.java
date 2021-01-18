@@ -2,8 +2,8 @@ package me.study.shop.security;
 
 import java.util.stream.Collectors;
 
-import me.study.shop.member.domain.Role;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.Role;
+import me.study.shop.user.domain.User;
 
 public class JwtUtil {
 	public static String newApiToken(Jwt jwt, User user) {
