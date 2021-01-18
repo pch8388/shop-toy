@@ -1,5 +1,6 @@
 package me.study.shop.cart.api;
 
+import me.study.shop.config.WithMockCustomUser;
 import me.study.shop.user.domain.Address;
 import me.study.shop.cart.domain.Cart;
 import me.study.shop.user.domain.Email;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockCustomUser
 class CartApiTest {
 
 	@Autowired
