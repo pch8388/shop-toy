@@ -1,5 +1,6 @@
 package me.study.shop.product.api;
 
+import me.study.shop.config.WithMockCustomUser;
 import me.study.shop.product.domain.Product;
 import me.study.shop.product.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockCustomUser
 class ProductApiTest {
 
 	@Autowired
@@ -61,13 +63,13 @@ class ProductApiTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":0}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 
 		mockMvc.perform(post("/api/v1/product")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"\",\"price\":10000, \"stockQuantity\":100}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 	}
 
 	@Test

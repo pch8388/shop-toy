@@ -1,8 +1,10 @@
 package me.study.shop.cart.api;
 
-import me.study.shop.member.domain.Address;
+import me.study.shop.config.WithMockCustomUser;
+import me.study.shop.user.domain.Address;
 import me.study.shop.cart.domain.Cart;
-import me.study.shop.member.domain.Member;
+import me.study.shop.user.domain.Email;
+import me.study.shop.user.domain.User;
 import me.study.shop.product.domain.Product;
 import me.study.shop.cart.service.CartService;
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockCustomUser
 class CartApiTest {
 
 	@Autowired
@@ -40,14 +43,15 @@ class CartApiTest {
 	@Test
 	@DisplayName("장바구니 추가")
 	public void add_cart() throws Exception {
-		final Member mockMember = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+		final User mockUser = User.createUser(
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product mockProduct = Product.createProduct(
 			"test", 10000, 10);
 
 
-		final Cart mockCart = Cart.addToCart(mockMember, mockProduct);
+		final Cart mockCart = Cart.addToCart(mockUser, mockProduct);
 
 		given(cartService.saveCart(anyLong(), anyLong())).willReturn(mockCart);
 
@@ -67,13 +71,13 @@ class CartApiTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"productId\":1}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 
 		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"memberId\":1}"))
 			.andDo(print())
-			.andExpect(status().is4xxClientError());
+			.andExpect(status().isBadRequest());
 	}
 
 	@Test
@@ -87,13 +91,14 @@ class CartApiTest {
 	@Test
 	@DisplayName("장바구니 목록 조회")
 	public void list_cart() throws Exception {
-		final Member mockMember = Member.createMember(
-			"member1", "test", new Address("Seoul", "road", "12345"));
+		final User mockUser = User.createUser(
+			"member1", "test", new Email("test@test.com"),
+			new Address("Seoul", "road", "12345"));
 
 		final Product mockProduct = Product.createProduct(
 			"test", 10000, 10);
 
-		List<Cart> mockCart = Collections.singletonList(Cart.addToCart(mockMember, mockProduct));
+		List<Cart> mockCart = Collections.singletonList(Cart.addToCart(mockUser, mockProduct));
 
 		Page<Cart> mockPage = new PageImpl<>(mockCart);
 		PageRequest pageRequest = PageRequest.of(0, 3);

@@ -1,5 +1,6 @@
 package me.study.shop.product.api;
 
+import me.study.shop.config.WithMockCustomUser;
 import me.study.shop.product.service.CategoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockCustomUser
 class CategoryApiTest {
 
     @Autowired

@@ -9,11 +9,13 @@ public enum ErrorCode {
 
 	/** product */
 	NOT_FOUND_PRODUCT(HttpStatus.NOT_FOUND, "해당하는 상품이 없습니다."),
-	NOT_ENOUGH_STOCK(HttpStatus.NOT_FOUND, "재고가 부족합니다."),
+	NOT_ENOUGH_STOCK(HttpStatus.BAD_REQUEST, "재고가 부족합니다."),
 	QUANTITY_PARAMETER(HttpStatus.BAD_REQUEST, "0이하로 재고를 추가할 수 없습니다."),
 
-	/** member */
-	NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당하는 회원이 없습니다."),
+	/** user */
+	NOT_FOUND_USER(HttpStatus.BAD_REQUEST, "해당하는 회원이 없습니다."),
+	NOT_FOUND_EMAIL(HttpStatus.BAD_REQUEST, "해당하는 이메일이 없습니다."),
+	EXIST_EMAIL(HttpStatus.BAD_REQUEST, "이미 등록된 이메일 입니다."),
 
 	/** cart */
 	NOT_FOUND_CART(HttpStatus.NOT_FOUND, "존재하지 않는 장바구니 입니다."),

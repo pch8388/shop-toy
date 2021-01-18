@@ -17,3 +17,10 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+jwt:
+  token:
+    header: api_key
+    issuer: social_server
+    clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+    expirySeconds: 0
