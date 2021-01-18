@@ -1,9 +1,9 @@
-package me.study.shop.member.repository;
+package me.study.shop.user.repository;
 
 import java.util.Optional;
 
-import me.study.shop.member.domain.Email;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.Email;
+import me.study.shop.user.domain.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

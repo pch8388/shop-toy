@@ -1,7 +1,7 @@
 package me.study.shop.cart.repository;
 
 import me.study.shop.cart.domain.Cart;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.User;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

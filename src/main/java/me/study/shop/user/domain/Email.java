@@ -1,5 +1,6 @@
-package me.study.shop.member.domain;
+package me.study.shop.user.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.AccessLevel;
@@ -16,5 +17,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 public class Email {
+	@Column(name = "email", unique = true)
 	private String emailAddress;
 }

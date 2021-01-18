@@ -1,25 +1,26 @@
-package me.study.shop.member.domain;
+package me.study.shop.user.domain;
 
 import static com.google.common.base.Preconditions.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.study.shop.security.Jwt;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
 @ToString(of = {"id", "username", "email"})
@@ -32,8 +33,10 @@ public class User {
 	@Column(name = "member_id")
 	private Long id;
 
+	@Column(name = "username", length = 10, nullable = false)
 	private String username;
 
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Embedded
@@ -44,6 +47,8 @@ public class User {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<Role> roles;
+
+	private LocalDateTime lastLoginAt;
 
 	private User(String username, String password, Email email, Address address, Role... roles) {
 		validateUser(username, password, email);
@@ -72,5 +77,13 @@ public class User {
 
 	public String getEmailAddress() {
 		return email.getEmailAddress();
+	}
+
+	public void login(PasswordEncoder passwordEncoder, String credential) {
+		if (!passwordEncoder.matches(password, credential)) {
+			throw new BadCredentialsException("Bad Credential");
+		}
+
+		this.lastLoginAt = LocalDateTime.now();
 	}
 }

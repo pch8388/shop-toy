@@ -1,12 +1,12 @@
 package me.study.shop.cart.service;
 
-import me.study.shop.member.domain.Address;
+import me.study.shop.user.domain.Address;
 import me.study.shop.cart.domain.Cart;
-import me.study.shop.member.domain.Email;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.Email;
+import me.study.shop.user.domain.User;
 import me.study.shop.product.domain.Product;
 import me.study.shop.cart.repository.CartRepository;
-import me.study.shop.member.repository.UserRepository;
+import me.study.shop.user.repository.UserRepository;
 import me.study.shop.product.repository.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

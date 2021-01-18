@@ -1,4 +1,4 @@
-package me.study.shop.member.api;
+package me.study.shop.user.api;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
@@ -17,9 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import me.study.shop.member.domain.Role;
-import me.study.shop.member.domain.User;
-import me.study.shop.member.service.UserService;
+import me.study.shop.user.domain.Role;
+import me.study.shop.user.domain.User;
+import me.study.shop.user.service.UserService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

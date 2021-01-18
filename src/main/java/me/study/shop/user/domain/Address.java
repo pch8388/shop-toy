@@ -1,4 +1,4 @@
-package me.study.shop.member.domain;
+package me.study.shop.user.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

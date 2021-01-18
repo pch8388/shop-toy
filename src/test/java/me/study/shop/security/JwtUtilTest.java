@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.study.shop.member.domain.Role;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.Role;
+import me.study.shop.user.domain.User;
 
 class JwtUtilTest {
 

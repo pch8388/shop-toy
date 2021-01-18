@@ -2,13 +2,13 @@ package me.study.shop.cart.service;
 
 import lombok.RequiredArgsConstructor;
 import me.study.shop.cart.domain.Cart;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.User;
 import me.study.shop.product.domain.Product;
 import me.study.shop.cart.exception.NotFoundCartException;
-import me.study.shop.member.exception.NotFoundUserException;
+import me.study.shop.user.exception.NotFoundUserException;
 import me.study.shop.product.exception.NotFoundProductException;
 import me.study.shop.cart.repository.CartRepository;
-import me.study.shop.member.repository.UserRepository;
+import me.study.shop.user.repository.UserRepository;
 import me.study.shop.product.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

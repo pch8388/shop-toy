@@ -3,7 +3,7 @@ package me.study.shop.cart.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.study.shop.member.domain.User;
+import me.study.shop.user.domain.User;
 import me.study.shop.product.domain.Product;
 
 import javax.persistence.*;

@@ -1,25 +1,21 @@
-package me.study.shop.member.service;
+package me.study.shop.user.service;
 
 import me.study.shop.common.exception.ErrorCode;
-import me.study.shop.member.domain.Address;
-import me.study.shop.member.domain.Email;
-import me.study.shop.member.domain.User;
-import me.study.shop.member.exception.ExistEmailException;
-import me.study.shop.member.repository.UserRepository;
+import me.study.shop.user.domain.Address;
+import me.study.shop.user.domain.Email;
+import me.study.shop.user.domain.User;
+import me.study.shop.user.exception.ExistEmailException;
+import me.study.shop.user.repository.UserRepository;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
