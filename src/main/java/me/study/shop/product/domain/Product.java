@@ -3,6 +3,7 @@ package me.study.shop.product.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.study.shop.common.domain.BaseEntity;
 import me.study.shop.product.exception.StockQuantityParameterException;
 import me.study.shop.product.exception.NotEnoughStockException;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Product {
+public class Product extends BaseEntity {
 
 	@Id @GeneratedValue
 	@Column(name = "product_id")

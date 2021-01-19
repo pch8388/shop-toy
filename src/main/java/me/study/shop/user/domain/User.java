@@ -21,16 +21,17 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import me.study.shop.common.domain.BaseEntity;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
 @ToString(of = {"id", "username", "email"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User {
+public class User extends BaseEntity {
 
 	@Id @GeneratedValue
-	@Column(name = "member_id")
+	@Column(name = "user_id")
 	private Long id;
 
 	@Column(name = "username", length = 10, nullable = false)

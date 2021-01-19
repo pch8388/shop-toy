@@ -3,6 +3,7 @@ package me.study.shop.product.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.study.shop.common.domain.BaseEntity;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import static javax.persistence.FetchType.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class CategoryProduct {
+public class CategoryProduct extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "category_item_id")
