@@ -2,6 +2,7 @@ package me.study.shop.product.api;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import me.study.shop.product.dto.CategoryRequestDto;
 import me.study.shop.product.service.CategoryService;
@@ -15,11 +16,11 @@ public class CategoryApi {
 
     private final CategoryService categoryService;
 
-    @ApiOperation(value = "카테고리 등록", notes = "카테고리를 등록한다.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/v1/categories/{categoryId}")
+    @ApiOperation(value = "카테고리 등록", notes = "카테고리를 등록한다.")
     public Long register(
-        @PathVariable Long categoryId,
+        @PathVariable @ApiParam(value = "부모 카테고리 id") Long categoryId,
         @RequestBody CategoryRequestDto dto) {
         return categoryService.register(categoryId, dto);
     }

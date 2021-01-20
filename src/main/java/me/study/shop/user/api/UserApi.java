@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.study.shop.common.ApiResult;
+import me.study.shop.user.domain.Address;
+import me.study.shop.user.domain.Email;
 import me.study.shop.user.domain.User;
 import me.study.shop.user.dto.RegisterResponseDto;
 import me.study.shop.user.dto.RegisterRequestDto;
@@ -32,18 +34,11 @@ public class UserApi {
 	@PostMapping("/api/v1/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "유저 등록", notes = "유저를 등록한다")
-	@ApiImplicitParams({
-		@ApiImplicitParam(value = "유저이름", name = "username"),
-		@ApiImplicitParam(value = "비밀번호", name = "password"),
-		@ApiImplicitParam(value = "이메일주소", name = "emailAddress"),
-		@ApiImplicitParam(value = "도시", name = "city"),
-		@ApiImplicitParam(value = "주소", name = "street"),
-		@ApiImplicitParam(value = "우편번호", name = "zipcode")
-	})
 	public ApiResult<RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto dto) {
 		final User user = userService.register(
 			dto.getUsername(), dto.getPassword(),
-			dto.getEmail(), dto.getAddress());
+			new Email(dto.getEmailAddress()),
+			new Address(dto.getCity(), dto.getStreet(), dto.getZipcode()));
 
 		final String token = JwtUtil.newApiToken(jwt, user);
 		return new ApiResult<>(

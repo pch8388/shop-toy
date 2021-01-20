@@ -101,7 +101,7 @@ class CartServiceTest {
 		given(cartRepository.findAllByUser(user, pageRequest)).willReturn(mockPage);
 		given(userRepository.findById(1L)).willReturn(Optional.of(user));
 
-		final Page<Cart> pageCart = cartService.findAllByMemberId(1L, pageRequest);
+		final Page<Cart> pageCart = cartService.findAllByUserId(1L, pageRequest);
 		assertThat(pageCart.getSize()).isEqualTo(1);
 		assertThat(pageCart.getContent()).contains(cart);
 

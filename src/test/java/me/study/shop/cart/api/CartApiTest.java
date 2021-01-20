@@ -57,7 +57,7 @@ class CartApiTest {
 
 		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"memberId\":1,\"productId\":1}"))
+			.content("{\"userId\":1,\"productId\":1}"))
 			.andDo(print())
 			.andExpect(status().isCreated());
 
@@ -75,7 +75,7 @@ class CartApiTest {
 
 		mockMvc.perform(post("/api/v1/carts")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"memberId\":1}"))
+			.content("{\"userId\":1}"))
 			.andDo(print())
 			.andExpect(status().isBadRequest());
 	}
@@ -102,7 +102,7 @@ class CartApiTest {
 
 		Page<Cart> mockPage = new PageImpl<>(mockCart);
 		PageRequest pageRequest = PageRequest.of(0, 3);
-		given(cartService.findAllByMemberId(1L, pageRequest)).willReturn(mockPage);
+		given(cartService.findAllByUserId(1L, pageRequest)).willReturn(mockPage);
 
 		mockMvc.perform(get("/api/v1/carts/1")
 			.param("page", "0")

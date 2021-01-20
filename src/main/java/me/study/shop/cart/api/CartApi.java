@@ -1,7 +1,10 @@
 package me.study.shop.cart.api;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import me.study.shop.cart.dto.CartRequestDto;
 import me.study.shop.cart.dto.CartResponseDto;
@@ -20,27 +23,30 @@ public class CartApi {
 
 	private final CartService cartService;
 
-	@ApiOperation(value = "장바구니 등록", notes = "장바구니에 상품을 담는다")
-	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/carts")
+	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "장바구니 등록", notes = "장바구니에 상품을 담는다")
 	public Long add(@RequestBody @Valid CartRequestDto dto) {
 		return cartService.saveCart(
-			dto.getMemberId(), dto.getProductId()).getId();
+			dto.getUserId(), dto.getProductId()).getId();
 	}
 
-	@ApiOperation(value = "장바구니 삭제", notes = "장바구니 상품을 삭제한다")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/api/v1/carts/{cartId}")
-	public void delete(@PathVariable Long cartId) {
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "장바구니 삭제", notes = "장바구니 상품을 삭제한다")
+	public void delete(@PathVariable @ApiParam(value = "삭제할 장바구니 id") Long cartId) {
 		cartService.deleteCart(cartId);
 	}
 
+	@GetMapping("/api/v1/carts/{userId}")
 	@ApiOperation(value = "장바구니 조회", notes = "장바구니 상품을 조회한다")
-	@GetMapping("/api/v1/carts/{memberId}")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userId", dataType = "long", value ="장바구니를 조회할 유저 id")
+	})
 	public Page<CartResponseDto> list(
-		@PathVariable Long memberId, Pageable pageable) {
+		@PathVariable Long userId, Pageable pageable) {
 
-		return cartService.findAllByMemberId(memberId, pageable)
+		return cartService.findAllByUserId(userId, pageable)
 			.map(CartResponseDto::of);
 	}
 }
