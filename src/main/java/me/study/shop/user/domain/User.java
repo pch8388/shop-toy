@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,14 +23,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.study.shop.common.domain.BaseEntity;
+import me.study.shop.common.domain.BaseTimeEntity;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
 @ToString(of = {"id", "username", "email"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseTimeEntity {
 
 	@Id @GeneratedValue
 	@Column(name = "user_id")
@@ -47,6 +49,7 @@ public class User extends BaseEntity {
 	private Address address;
 
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
 	private Set<Role> roles;
 
 	private LocalDateTime lastLoginAt;
@@ -81,7 +84,7 @@ public class User extends BaseEntity {
 	}
 
 	public void login(PasswordEncoder passwordEncoder, String credential) {
-		if (!passwordEncoder.matches(password, credential)) {
+		if (!passwordEncoder.matches(credential, password)) {
 			throw new BadCredentialsException("Bad Credential");
 		}
 

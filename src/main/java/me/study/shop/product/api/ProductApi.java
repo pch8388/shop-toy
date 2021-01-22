@@ -22,20 +22,20 @@ public class ProductApi {
 	private final ProductService productService;
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/api/v1/product")
+	@PostMapping("/api/v1/products")
 	@ApiOperation(value = "상품 등록", notes = "상품을 등록한다")
 	public Long save(@RequestBody @Valid ProductRequestDto dto) {
 		return productService.save(dto.toEntity()).getId();
 	}
 
-	@GetMapping("/api/v1/product")
+	@GetMapping("/api/v1/products")
 	@ApiOperation(value = "상품 목록 조회", notes = "상품을 조회한다")
 	public Page<ProductResponseDto> list(Pageable pageable) {
 		return productService.findProducts(pageable)
 			.map(ProductResponseDto::of);
 	}
 
-	@GetMapping("/api/v1/product/{productId}")
+	@GetMapping("/api/v1/products/{productId}")
 	@ApiOperation(value = "상품 상세조회", notes = "상품 상세정보를 조회한다")
 	public ProductResponseDto detail(@PathVariable @ApiParam(value = "조회할 상품 id") Long productId) {
 		return ProductResponseDto.of(productService.findProduct(productId));

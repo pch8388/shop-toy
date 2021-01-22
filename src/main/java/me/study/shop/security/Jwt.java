@@ -45,6 +45,7 @@ public final class Jwt {
             builder.withExpiresAt(new Date(now.getTime() + expirySeconds * 1_000L));
         }
         builder.withClaim("userKey", claims.userKey);
+        builder.withClaim("emailAddress", claims.emailAddress);
         builder.withClaim("name", claims.name);
         builder.withArrayClaim("roles", claims.roles);
         return builder.sign(algorithm);
@@ -84,8 +85,8 @@ public final class Jwt {
     @ToString
     static public class Claims {
         Long userKey;
+        String emailAddress;
         String name;
-        Email email;
         String[] roles;
         Date iat;
         Date exp;
@@ -97,12 +98,12 @@ public final class Jwt {
             Claim userKey = decodedJWT.getClaim("userKey");
             if (!userKey.isNull())
                 this.userKey = userKey.asLong();
+            Claim emailAddress = decodedJWT.getClaim("emailAddress");
+            if (!emailAddress.isNull())
+                this.emailAddress = emailAddress.asString();
             Claim name = decodedJWT.getClaim("name");
             if (!name.isNull())
                 this.name = name.asString();
-            Claim email = decodedJWT.getClaim("email");
-            if (!email.isNull())
-                this.email = new Email(email.asString());
             Claim roles = decodedJWT.getClaim("roles");
             if (!roles.isNull())
                 this.roles = roles.asArray(String.class);
@@ -110,9 +111,10 @@ public final class Jwt {
             this.exp = decodedJWT.getExpiresAt();
         }
 
-        public static Claims of(long userKey, String name, String[] roles) {
+        public static Claims of(Long userKey, String emailAddress, String name, String[] roles) {
             Claims claims = new Claims();
             claims.userKey = userKey;
+            claims.emailAddress = emailAddress;
             claims.name = name;
             claims.roles = roles;
             return claims;
