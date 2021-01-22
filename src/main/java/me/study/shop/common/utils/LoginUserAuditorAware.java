@@ -17,9 +17,15 @@ public class LoginUserAuditorAware implements AuditorAware<String> {
 	public Optional<String> getCurrentAuditor() {
 		return Optional.ofNullable(SecurityContextHolder.getContext())
 			.map(SecurityContext::getAuthentication)
-			.filter(Authentication::isAuthenticated)
+			.filter(this::authenticationPredicate)
 			.map(Authentication::getPrincipal)
 			.map(JwtAuthentication.class::cast)
 			.map(JwtAuthentication::getUsername);
+	}
+
+	private boolean authenticationPredicate(Authentication auth) {
+		return auth.isAuthenticated()
+			&& auth.getAuthorities().stream()
+				.noneMatch(g -> "ROLE_ANONYMOUS".equalsIgnoreCase(g.getAuthority()));
 	}
 }
