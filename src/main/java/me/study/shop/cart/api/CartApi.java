@@ -1,20 +1,27 @@
 package me.study.shop.cart.api;
 
+import javax.validation.Valid;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import me.study.shop.cart.dto.CartRequestDto;
 import me.study.shop.cart.dto.CartResponseDto;
 import me.study.shop.cart.service.CartService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import me.study.shop.security.JwtAuthentication;
 
 @Api(tags = {"1. Cart"})
 @RestController
@@ -38,15 +45,12 @@ public class CartApi {
 		cartService.deleteCart(cartId);
 	}
 
-	@GetMapping("/api/v1/carts/{userId}")
+	@GetMapping("/api/v1/carts")
 	@ApiOperation(value = "장바구니 조회", notes = "장바구니 상품을 조회한다")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId", dataType = "long", value ="장바구니를 조회할 유저 id")
-	})
 	public Page<CartResponseDto> list(
-		@PathVariable Long userId, Pageable pageable) {
+		@AuthenticationPrincipal JwtAuthentication authentication, Pageable pageable) {
 
-		return cartService.findAllByUserId(userId, pageable)
+		return cartService.findAllByUserId(authentication.getId(), pageable)
 			.map(CartResponseDto::of);
 	}
 }

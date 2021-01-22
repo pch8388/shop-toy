@@ -104,7 +104,7 @@ class CartApiTest {
 		PageRequest pageRequest = PageRequest.of(0, 3);
 		given(cartService.findAllByUserId(1L, pageRequest)).willReturn(mockPage);
 
-		mockMvc.perform(get("/api/v1/carts/1")
+		mockMvc.perform(get("/api/v1/carts")
 			.param("page", "0")
 			.param("size", "3"))
 			.andDo(print())

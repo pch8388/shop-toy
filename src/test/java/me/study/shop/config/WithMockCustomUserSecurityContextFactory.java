@@ -9,7 +9,6 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 
 import me.study.shop.security.JwtAuthentication;
 import me.study.shop.security.JwtAuthenticationToken;
-import me.study.shop.user.domain.Email;
 import me.study.shop.user.domain.Role;
 
 public class WithMockCustomUserSecurityContextFactory

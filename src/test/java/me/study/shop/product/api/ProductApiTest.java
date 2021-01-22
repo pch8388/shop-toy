@@ -47,7 +47,7 @@ class ProductApiTest {
 
 		given(productService.save(any(Product.class))).willReturn(mockProduct);
 
-		mockMvc.perform(post("/api/v1/product")
+		mockMvc.perform(post("/api/v1/products")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":100}"))
 			.andDo(print())
@@ -59,13 +59,13 @@ class ProductApiTest {
 	@Test
 	@DisplayName("상품 등록 - 파라미터 검증")
 	public void save_invalid_input() throws Exception {
-		mockMvc.perform(post("/api/v1/product")
+		mockMvc.perform(post("/api/v1/products")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"test\",\"price\":10000, \"stockQuantity\":0}"))
 			.andDo(print())
 			.andExpect(status().isBadRequest());
 
-		mockMvc.perform(post("/api/v1/product")
+		mockMvc.perform(post("/api/v1/products")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content("{\"title\":\"\",\"price\":10000, \"stockQuantity\":100}"))
 			.andDo(print())
@@ -83,7 +83,7 @@ class ProductApiTest {
 		PageRequest pageRequest = PageRequest.of(0, 3);
 		given(productService.findProducts(pageRequest)).willReturn(mockPage);
 
-		mockMvc.perform(get("/api/v1/product")
+		mockMvc.perform(get("/api/v1/products")
 				.param("page", "0")
 				.param("size", "3"))
 			.andDo(print())
@@ -102,7 +102,7 @@ class ProductApiTest {
 
 		given(productService.findProduct(id)).willReturn(product);
 
-		mockMvc.perform(get("/api/v1/product/1"))
+		mockMvc.perform(get("/api/v1/products/1"))
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
