@@ -59,15 +59,15 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
 				}
 				
 				Long userKey = claims.userKey;
+				String emailAddress = claims.emailAddress;
 				String username = claims.name;
-				Email email = claims.email;
-				
+
 				List<GrantedAuthority> authorities = obtainAuthorities(claims);
 
-				if (validAuthentication(userKey, username, email, authorities)) {
+				if (validAuthentication(emailAddress, username, authorities)) {
 					final JwtAuthenticationToken authentication =
 						new JwtAuthenticationToken(
-							new JwtAuthentication(userKey, username, email), null, authorities);
+							new JwtAuthentication(userKey, emailAddress, username), null, authorities);
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
@@ -79,8 +79,8 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
 		chain.doFilter(request, response);
 	}
 
-	private boolean validAuthentication(Long userKey, String username, Email email, List<GrantedAuthority> authorities) {
-		return nonNull(userKey) && !username.isEmpty() && nonNull(email) && authorities.size() > 0;
+	private boolean validAuthentication(String emailAddress, String username, List<GrantedAuthority> authorities) {
+		return nonNull(emailAddress) && !username.isEmpty() && authorities.size() > 0;
 	}
 
 	private List<GrantedAuthority> obtainAuthorities(Jwt.Claims claims) {
