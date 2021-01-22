@@ -43,6 +43,5 @@ class UserRepositoryTest {
 		LocalDateTime now = LocalDateTime.now();
 
 		assertThat(saveUser.getCreateDate()).isBefore(now);
-		assertThat(saveUser.getCreatedBy()).isNotNull();
 	}
 }

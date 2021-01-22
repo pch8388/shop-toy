@@ -12,7 +12,7 @@ public class JwtUtil {
 			.map(Role::getAuthority)
 			.collect(Collectors.toSet())
 			.toArray(new String[user.getRoles().size()]);
-		final Jwt.Claims claims = Jwt.Claims.of(user.getId(), user.getUsername(), roles);
+		final Jwt.Claims claims = Jwt.Claims.of(user.getId(), user.getEmailAddress(), user.getUsername(), roles);
 		return jwt.newToken(claims);
 	}
 }

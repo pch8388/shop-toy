@@ -9,7 +9,6 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 
 import me.study.shop.security.JwtAuthentication;
 import me.study.shop.security.JwtAuthenticationToken;
-import me.study.shop.user.domain.Email;
 import me.study.shop.user.domain.Role;
 
 public class WithMockCustomUserSecurityContextFactory
@@ -18,7 +17,7 @@ public class WithMockCustomUserSecurityContextFactory
 	public SecurityContext createSecurityContext(WithMockCustomUser annotation) {
 		final SecurityContext context = SecurityContextHolder.createEmptyContext();
 		final Authentication auth = new JwtAuthenticationToken(
-			new JwtAuthentication(1L, "tester", new Email("test00@gmail.com")),
+			new JwtAuthentication(1L, "test00@gmail.com", "tester"),
 			null,
 			createAuthorityList(Role.ROLE_USER.name())
 		);

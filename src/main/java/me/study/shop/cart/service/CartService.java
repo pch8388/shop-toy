@@ -25,8 +25,8 @@ public class CartService {
 	private final ProductRepository productRepository;
 
 	@Transactional
-	public Cart saveCart(Long memberId, Long productId) {
-		final User user = userRepository.findById(memberId)
+	public Cart saveCart(Long userId, Long productId) {
+		final User user = userRepository.findById(userId)
 			.orElseThrow(NotFoundUserException::new);
 
 		final Product product = productRepository.findById(productId)
@@ -43,9 +43,9 @@ public class CartService {
 		cartRepository.delete(cart);
 	}
 
-	public Page<Cart> findAllByMemberId(Long memberId, Pageable pageable) {
+	public Page<Cart> findAllByUserId(Long userId, Pageable pageable) {
 		return cartRepository.findAllByUser(
-			userRepository.findById(memberId)
+			userRepository.findById(userId)
 				.orElseThrow(NotFoundUserException::new), pageable);
 	}
 }
